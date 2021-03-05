@@ -6,43 +6,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class ViewProfile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class UserChat extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_profile);
+        setContentView(R.layout.activity_user_chat);
 
-        Toolbar toolbar = findViewById(R.id.profileToolbar);
+        Toolbar toolbar = findViewById(R.id.chatToolbar);
         setSupportActionBar(toolbar);
 
-        drawer = findViewById(R.id.profileDrawerLayout);
+        drawer = findViewById(R.id.chatDrawerLayout);
         ActionBarDrawerToggle barToggle = new ActionBarDrawerToggle(this, drawer,
                 toolbar, R.string.nav_open, R.string.nav_close);
         drawer.addDrawerListener(barToggle);
         barToggle.syncState();
 
-        NavigationView navigator = findViewById(R.id.profileNavMenu);
+        NavigationView navigator = findViewById(R.id.chatNavMenu);
         navigator.setNavigationItemSelectedListener(this);
-    }
-
-    /**
-     * On start chat button click event handler.
-     * @param view view.
-     */
-    public void startChat(View view) {
-        Intent intent = new Intent(view.getContext(), UserChat.class);
-        startActivity(intent);
     }
 
     /**
