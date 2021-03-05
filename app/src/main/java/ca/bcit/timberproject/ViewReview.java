@@ -6,7 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,34 +16,33 @@ import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class ViewHike extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ViewReview extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_hike);
+        setContentView(R.layout.activity_view_review);
 
-        Toolbar toolbar = findViewById(R.id.hikeToolbar);
+        Toolbar toolbar = findViewById(R.id.reviewToolbar);
         setSupportActionBar(toolbar);
 
-        drawer = findViewById(R.id.hikeDrawerLayout);
+        drawer = findViewById(R.id.reviewDrawerLayout);
         ActionBarDrawerToggle barToggle = new ActionBarDrawerToggle(this, drawer,
                 toolbar, R.string.nav_open, R.string.nav_close);
         drawer.addDrawerListener(barToggle);
         barToggle.syncState();
 
-        NavigationView navigator = findViewById(R.id.hikeNavMenu);
+        NavigationView navigator = findViewById(R.id.reviewNavMenu);
         navigator.setNavigationItemSelectedListener(this);
 
-        ViewPager pager = findViewById(R.id.hikeImageSlider);
-        ImageAdapter adapter = new ImageAdapter(this);
-        pager.setAdapter(adapter);
-    }
+        RecyclerView reviewRecycler = findViewById(R.id.reviewRecycler);
+        Review[] reviewList = Review.reviews;
 
-    public void tempClick(View view) {
-        Intent intent = new Intent(drawer.getContext(), ViewReview.class);
-        startActivity(intent);
+        ReviewAdapter adapter = new ReviewAdapter(reviewList);
+        reviewRecycler.setAdapter(adapter);
+        LinearLayoutManager lm = new LinearLayoutManager(this);
+        reviewRecycler.setLayoutManager(lm);
     }
 
     /**
