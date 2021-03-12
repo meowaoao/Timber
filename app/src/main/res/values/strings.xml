@@ -9,10 +9,18 @@
     <string name="nav_close">Close Menu</string>
     <string name="editProfileBtn">Edit Profile</string>
 
+
     <string name="userName">Alphonse Elric</string>
     <string name="userEmail">alchemy@gmail.com</string>
     <string name="userLocation">Amestris</string>
     <string name="userDesc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac semper ipsum. Proin venenatis orci vel augue iaculis placerat. Cras ut enim arcu. Ut lorem felis, accumsan nec luctus ut, dictum in turpis. Suspendisse sit amet diam in urna varius luctus nec ac massa. In sed posuere lectus. Fusce volutpat dignissim diam, eget venenatis odio condimentum quis.
 Maecenas odio augue, faucibus eget risus id, consequat scelerisque augue. Ut dictum fermentum facilisis. Praesent malesuada sodales nunc. Pellentesque nec lorem justo. Suspendisse mollis est sed turpis imperdiet hendrerit. Etiam at mollis arcu. Vivamus sagittis pharetra porttitor. </string>
     <string name="hikeDesc">Pender Hill is located on the Sunshine Coast in Pender Harbour and is a short, steep hike that provides incredible views of the surrounding area. From various viewpoints near the top, the views include one looking down towards Hotel Lake, across to Mount Daniel, across Pender Harbour, and out towards the Strait of Georgia. </string>
+
+    <string name="review_hint">Write a review about the hike</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
+    <string name="upload_photo">Upload Photos</string>
+
+
 </resources>
