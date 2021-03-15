@@ -30,4 +30,8 @@ Maecenas odio augue, faucibus eget risus id, consequat scelerisque augue. Ut dic
     <string name="existing_account">Login with Existing Account</string>
     <string name="prompt_name">Name:</string>
     <string name="prompt_confirm">Confirm Password: </string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
+    <string name="upload_photo">Upload photo</string>
+    <string name="review_hint">Review body text</string>
 </resources>
