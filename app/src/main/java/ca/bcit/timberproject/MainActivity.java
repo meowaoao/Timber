@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragHolder, profile).commit();
                 break;
             case R.id.nav_logout:
+                FirebaseAuth.getInstance().signOut();
                 preferences.edit().remove("user").apply();
                 finishAndRemoveTask();
                 break;
@@ -130,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragHolder, profile).commit();
                 break;
             case R.id.nav_logout:
+                FirebaseAuth.getInstance().signOut();
                 preferences.edit().remove("user").apply();
                 finishAndRemoveTask();
                 break;
