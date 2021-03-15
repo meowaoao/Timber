@@ -15,4 +15,19 @@
     <string name="userDesc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac semper ipsum. Proin venenatis orci vel augue iaculis placerat. Cras ut enim arcu. Ut lorem felis, accumsan nec luctus ut, dictum in turpis. Suspendisse sit amet diam in urna varius luctus nec ac massa. In sed posuere lectus. Fusce volutpat dignissim diam, eget venenatis odio condimentum quis.
 Maecenas odio augue, faucibus eget risus id, consequat scelerisque augue. Ut dictum fermentum facilisis. Praesent malesuada sodales nunc. Pellentesque nec lorem justo. Suspendisse mollis est sed turpis imperdiet hendrerit. Etiam at mollis arcu. Vivamus sagittis pharetra porttitor. </string>
     <string name="hikeDesc">Pender Hill is located on the Sunshine Coast in Pender Harbour and is a short, steep hike that provides incredible views of the surrounding area. From various viewpoints near the top, the views include one looking down towards Hotel Lake, across to Mount Daniel, across Pender Harbour, and out towards the Strait of Georgia. </string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">E-mail Address:</string>
+    <string name="prompt_password">Password:</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="login">Login</string>
+    <string name="forgot">Forgotten password?</string>
+    <string name="sign_up">Register</string>
+    <string name="existing_account">Login with Existing Account</string>
+    <string name="prompt_name">Name:</string>
+    <string name="prompt_confirm">Confirm Password: </string>
 </resources>

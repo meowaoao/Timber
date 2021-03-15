@@ -10,4 +10,6 @@
     <color name="profile_grey">#4D5061</color>
     <color name="detail_grey">#A1A6B4</color>
     <color name="user_card_green">#B4EBCA</color>
+    <color name="tint">#df000000</color>
+    <color name="white_tint">#dfffffff</color>
 </resources>
