@@ -12,22 +12,39 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     SharedPreferences preferences;
+    FirebaseFirestore db;
+    FirebaseAuth firebaseAuth;
+
+    TextView userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         preferences = getSharedPreferences("AppPref", 0);
+        db = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        loadUserData(user);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -40,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigator = findViewById(R.id.navMenu);
         navigator.setNavigationItemSelectedListener(this);
+        userName = navigator.getHeaderView(0).findViewById(R.id.nav_userName);
 
         /*
          * Checks for intents on the main activity. On opening the app this will be null however if the menu is used from
@@ -56,6 +74,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigator.setCheckedItem(R.id.nav_home);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragHolder, new HomeFragment()).commit();
         }
+    }
+
+    public void loadUserData(FirebaseUser user) {
+        String id = user.getUid();
+        db.collection("users").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                userName.setText(documentSnapshot.get("name").toString());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w("Main", "Error loading document", e);
+            }
+        });
     }
 
     /**

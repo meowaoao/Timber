@@ -13,21 +13,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="100dp">
+
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/pfp"></ImageView>
+            android:src="@drawable/pfp" />
     </androidx.cardview.widget.CardView>
 
 
-
     <TextView
+        android:id="@+id/nav_userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="15dp"
         android:textColor="@color/white"
-        android:text="@string/userName"></TextView>
+        android:text="@string/userName" />
 
 </LinearLayout>

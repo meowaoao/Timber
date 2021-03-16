@@ -18,21 +18,31 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterFragment extends Fragment {
     EditText emailET, nameET, passwordET, confirmPasswordET;
     Button registerBtn;
     TextView existing;
     FirebaseAuth firebaseAuth;
+    FirebaseFirestore db;
     SharedPreferences preferences;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_register, container, false);
+
+        db = FirebaseFirestore.getInstance();
 
         preferences = getContext().getSharedPreferences("AppPref", 0);
         String user = preferences.getString("user", null);
@@ -94,6 +104,21 @@ public class RegisterFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            Map<String, Object> user = new HashMap<>();
+                            user.put("email", email);
+                            user.put("name", name);
+                            db.collection("users").document(firebaseAuth.getUid()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("Register", "DocumentSnapshot added ");
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("Register", "Error adding document", e);
+                                }
+                            });
+
                             preferences.edit().putString("user", email).apply();
                             startActivity(new Intent(getContext(), MainActivity.class));
                         } else {
