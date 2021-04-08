@@ -11,13 +11,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class ViewReview extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+    RecyclerView reviewRecycler;
+    Review[] reviewList;
+    ReviewAdapter adapter;
+
+    DatabaseReference databaseReviews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +39,8 @@ public class ViewReview extends AppCompatActivity implements NavigationView.OnNa
 
         Toolbar toolbar = findViewById(R.id.reviewToolbar);
         setSupportActionBar(toolbar);
+
+        databaseReviews = FirebaseDatabase.getInstance().getReference("Reviews");
 
         drawer = findViewById(R.id.reviewDrawerLayout);
         ActionBarDrawerToggle barToggle = new ActionBarDrawerToggle(this, drawer,
@@ -36,14 +51,40 @@ public class ViewReview extends AppCompatActivity implements NavigationView.OnNa
         NavigationView navigator = findViewById(R.id.reviewNavMenu);
         navigator.setNavigationItemSelectedListener(this);
 
-        RecyclerView reviewRecycler = findViewById(R.id.reviewRecycler);
-        Review[] reviewList = Review.reviews;
+        reviewRecycler = findViewById(R.id.reviewRecycler);
+        reviewList = Review.reviews;
 
-        ReviewAdapter adapter = new ReviewAdapter(reviewList);
+        adapter = new ReviewAdapter(reviewList);
         reviewRecycler.setAdapter(adapter);
         LinearLayoutManager lm = new LinearLayoutManager(this);
         reviewRecycler.setLayoutManager(lm);
     }
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        databaseReviews.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                ArrayList<Review> newReviewList = new ArrayList<>();
+//                for (DataSnapshot reviewSnapshot : snapshot.getChildren()) {
+//                    Review review = reviewSnapshot.getValue(Review.class);
+//                    newReviewList.add(review);
+//                }
+//                Review[] newReviews = new Review[newReviewList.size()];
+//                for (int i = 0; i < newReviewList.size(); i++) {
+//                    newReviews[i] = newReviewList.get(i);
+//                }
+//                reviewList = newReviews;
+//                adapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
 
     /**
      * If the back button is pressed with the navigation menu open, it will close the menu
@@ -90,5 +131,23 @@ public class ViewReview extends AppCompatActivity implements NavigationView.OnNa
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_write_review, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.review_button:
+                Intent i = new Intent(this, ReviewHike.class);
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

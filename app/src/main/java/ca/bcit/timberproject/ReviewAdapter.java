@@ -46,7 +46,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         TextView desc = card.findViewById(R.id.reviewerReview);
         desc.setText(reviews[position].getDescription());
         RatingBar rate = card.findViewById(R.id.reviewerStars);
-        rate.setNumStars(reviews[position].getStars());
+        rate.setRating(reviews[position].getStars());
 
         card.setOnClickListener(new View.OnClickListener() {
             @Override

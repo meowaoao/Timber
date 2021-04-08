@@ -95,15 +95,15 @@ public class ViewHike extends AppCompatActivity implements NavigationView.OnNavi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_write_review, menu);
+        getMenuInflater().inflate(R.menu.menu_view_reviews, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.review_button:
-                Intent i = new Intent(this, ReviewHike.class);
+            case R.id.view_review_button:
+                Intent i = new Intent(this, ViewReview.class);
                 startActivity(i);
                 return true;
             default:

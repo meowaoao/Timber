@@ -34,4 +34,6 @@ Maecenas odio augue, faucibus eget risus id, consequat scelerisque augue. Ut dic
     <string name="submit">Submit</string>
     <string name="upload_photo">Upload photo</string>
     <string name="review_hint">Review body text</string>
+    <string name="reviews">Reviews</string>
+    <string name="write_review">Write Your Own…</string>
 </resources>
