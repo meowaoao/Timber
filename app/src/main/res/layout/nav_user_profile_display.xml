@@ -15,10 +15,11 @@
         app:cardCornerRadius="100dp">
 
         <ImageView
+            android:id="@+id/nav_userPhoto"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/pfp" />
+            android:src="@drawable/edward" />
     </androidx.cardview.widget.CardView>
 
 

@@ -10,20 +10,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ViewReview extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_review);
-
+        preferences = getSharedPreferences("AppPref", 0);
         Toolbar toolbar = findViewById(R.id.reviewToolbar);
         setSupportActionBar(toolbar);
 
@@ -85,7 +88,11 @@ public class ViewReview extends AppCompatActivity implements NavigationView.OnNa
                 startActivity(intent);
                 break;
             case R.id.nav_logout:
-                finishAndRemoveTask();
+                FirebaseAuth.getInstance().signOut();
+                preferences.edit().remove("user").apply();
+                Intent logging = new Intent(this, Login.class);
+                startActivity(logging);
+                finish();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

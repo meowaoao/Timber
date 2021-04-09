@@ -9,19 +9,25 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ViewProfile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+    SharedPreferences preferences;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_profile);
+        preferences = getSharedPreferences("AppPref", 0);
+        user = (User) getIntent().getExtras().get("user");
 
         Toolbar toolbar = findViewById(R.id.profileToolbar);
         setSupportActionBar(toolbar);
@@ -42,6 +48,7 @@ public class ViewProfile extends AppCompatActivity implements NavigationView.OnN
      */
     public void startChat(View view) {
         Intent intent = new Intent(view.getContext(), UserChat.class);
+        intent.putExtra("userID", user.getUserID());
         startActivity(intent);
     }
 
@@ -85,7 +92,11 @@ public class ViewProfile extends AppCompatActivity implements NavigationView.OnN
                 startActivity(intent);
                 break;
             case R.id.nav_logout:
-                finishAndRemoveTask();
+                FirebaseAuth.getInstance().signOut();
+                preferences.edit().remove("user").apply();
+                Intent logging = new Intent(this, Login.class);
+                startActivity(logging);
+                finish();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

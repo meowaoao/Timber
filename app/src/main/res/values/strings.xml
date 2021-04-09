@@ -34,4 +34,5 @@ Maecenas odio augue, faucibus eget risus id, consequat scelerisque augue. Ut dic
     <string name="submit">Submit</string>
     <string name="upload_photo">Upload photo</string>
     <string name="review_hint">Review body text</string>
+    <string name="textMsgField">Type a message</string>
 </resources>

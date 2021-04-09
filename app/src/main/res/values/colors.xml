@@ -12,4 +12,5 @@
     <color name="user_card_green">#B4EBCA</color>
     <color name="tint">#df000000</color>
     <color name="white_tint">#dfffffff</color>
+    <color name="chat_time">#FFAFAFAF</color>
 </resources>

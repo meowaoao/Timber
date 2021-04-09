@@ -2,6 +2,9 @@ package ca.bcit.timberproject;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +29,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.File;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,6 +104,10 @@ public class RegisterFragment extends Fragment {
                     confirmPasswordET.setError("Passwords do not match");
                     return;
                 }
+                emailET.setText("");
+                nameET.setText("");
+                passwordET.setText("");
+                confirmPasswordET.setText("");
 
                 firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

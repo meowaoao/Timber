@@ -1,6 +1,9 @@
 package ca.bcit.timberproject;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+    private String userID;
     private String name;
     private String profileDesc;
     private int profileImage;
@@ -13,15 +16,20 @@ public class User {
             "ac eleifend dignissim, nibh elit tristique quam, ac tristique nisi nisl nec tellus. Nulla facilisi. ";
 
     public static User[] members = {
-            new User("Edward Elric", temp, R.drawable.edward),
-            new User("Winry Rockbell", temp, R.drawable.winry),
-            new User("Dwarf in the Flask", temp, R.drawable.dwarf),
+            new User("dsgsds12", "Edward Elric", temp, R.drawable.edward),
+            new User("dsgsds12", "Winry Rockbell", temp, R.drawable.winry),
+            new User("dsgsds12", "Dwarf in the Flask", temp, R.drawable.dwarf),
     };
 
-    private User(String name, String desc, int imgID) {
+    public User(String userID, String name, String desc, int imgID) {
+        this.userID = userID;
         this.name = name;
         this.profileDesc = desc;
         this.profileImage = imgID;
+    }
+
+    public String getUserID() {
+        return userID;
     }
 
     public String getName() {

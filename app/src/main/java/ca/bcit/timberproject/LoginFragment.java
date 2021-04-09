@@ -78,6 +78,9 @@ public class LoginFragment extends Fragment {
                     passwordET.setError("Please enter password");
                     return;
                 }
+                emailET.setText("");
+                passwordET.setText("");
+
                 firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

@@ -21,55 +21,17 @@
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-        <ScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/userChat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:layout_margin="10dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_row="0"
-                    android:layout_column="0"
-                    android:layout_columnWeight="1"
-                    android:text="This is a test for a text message"
-                    android:background="@drawable/incoming_bubble"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_row="0"
-                    android:layout_column="1"
-                    android:layout_columnWeight="1"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_row="1"
-                    android:layout_column="0"
-                    android:layout_columnWeight="1"
-                    android:text="This is a test for a text message"
-                    android:background="@drawable/incoming_bubble"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_row="2"
-                    android:layout_column="1"
-                    android:layout_marginTop="5dp"
-                    android:layout_columnWeight="1"
-                    android:text="The spacing on this is not working yet but I will figure it out eventually."
-                    android:background="@drawable/outgoing_bubble"/>
-
-            </GridLayout>
-
-        </ScrollView>
+        <include
+            android:id="@+id/chatKeyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/message_field"/>
 
     </LinearLayout>
 
