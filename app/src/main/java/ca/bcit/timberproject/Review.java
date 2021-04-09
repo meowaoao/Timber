@@ -3,7 +3,7 @@ package ca.bcit.timberproject;
 public class Review {
     private String name;
     private String description;
-    private int stars;
+    private float stars;
 
     public static final Review[] reviews = {
             new Review("Roy Mustang", "In the fictitious country of Amestris, two young brothers, " +
@@ -32,7 +32,9 @@ public class Review {
                     "out how to use their alchemic skills.", 1)
     };
 
-    private Review(String name, String description,  int stars) {
+    public Review() {}
+
+    public Review(String name, String description,  float stars) {
         this.name = name;
         this.description = description;
         this.stars = stars;
@@ -46,7 +48,7 @@ public class Review {
         return description;
     }
 
-    public int getStars() {
+    public float getStars() {
         return stars;
     }
 }

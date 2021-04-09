@@ -20,6 +20,8 @@ public class HomeFragment extends Fragment {
 
         RecyclerView hikeRecycler = view.findViewById(R.id.hikeRecycler);
         Hike[] hikeList = Hike.hikes;
+        System.out.println("<--- hikeList in HomeFragment ---->");
+        System.out.println("<----- length of hikeList is " + hikeList.length);
 
         HikeAdapter adapter = new HikeAdapter(hikeList);
         hikeRecycler.setAdapter(adapter);

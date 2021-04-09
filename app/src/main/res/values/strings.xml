@@ -34,5 +34,13 @@ Maecenas odio augue, faucibus eget risus id, consequat scelerisque augue. Ut dic
     <string name="submit">Submit</string>
     <string name="upload_photo">Upload photo</string>
     <string name="review_hint">Review body text</string>
+    <string name="reviews">Reviews</string>
+    <string name="write_review">Write Your Own…</string>
+    <string name="hikeLength">Length(km):</string>
+    <string name="hikeTime">Time(hr):</string>
+    <string name="hikeElevation">Elevation(m):</string>
+    <string name="hikeSeason">Season:</string>
+    <string name="hikeDog">Dog Friendly:</string>
+    <string name="hikeCamp">Camping:</string>
     <string name="textMsgField">Type a message</string>
 </resources>

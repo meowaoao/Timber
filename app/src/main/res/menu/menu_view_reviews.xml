@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/review_button"
-        android:title="@string/write_review"
+        android:id="@+id/view_review_button"
+        android:title="@string/reviews"
         app:showAsAction="always" />
-
 </menu>

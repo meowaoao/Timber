@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +43,35 @@ public class ViewHike extends AppCompatActivity implements NavigationView.OnNavi
         ViewPager pager = findViewById(R.id.hikeImageSlider);
         ImageAdapter adapter = new ImageAdapter(this);
         pager.setAdapter(adapter);
+
+        int position = (int) getIntent().getExtras().get("position");
+        Hike hike = Hike.hikes[position];
+        TextView nameView = findViewById(R.id.detailsHikeName);
+        nameView.setText(hike.getName());
+        TextView descView = findViewById(R.id.detailsHikeDesc);
+        descView.setText(hike.getDescription());
+        TextView locView = findViewById(R.id.detailsHikeLocation);
+        locView.setText(hike.getRegion());
+        TextView diffView = findViewById(R.id.detailsHikeDifficulty);
+        diffView.setText(hike.getDifficulty());
+        TextView lengthView = findViewById(R.id.detailsHikeLength);
+        String length = getResources().getString(R.string.hikeLength) + " " + hike.getDistance();
+        lengthView.setText(length);
+        TextView timeView = findViewById(R.id.detailsHikeTime);
+        String time = getResources().getString(R.string.hikeTime) + " " + hike.getTime();
+        timeView.setText(time);
+        TextView elevationView = findViewById(R.id.detailsHikeElevation);
+        String elevation = getResources().getString(R.string.hikeElevation) + " " + hike.getElevation();
+        elevationView.setText(elevation);
+        TextView seasonView = findViewById(R.id.detailsHikeSeason);
+        String season = getResources().getString(R.string.hikeSeason) + " " + hike.getSeason();
+        seasonView.setText(season);
+        TextView dogView = findViewById(R.id.detailsHikeDog);
+        String dog = getResources().getString(R.string.hikeDog) + " "  + hike.getDog();
+        dogView.setText(dog);
+        TextView campView = findViewById(R.id.detailsHikeCamp);
+        String camp = getResources().getString(R.string.hikeCamp) + " "  + hike.getCamping();
+        campView.setText(camp);
     }
 
     public void tempClick(View view) {
@@ -102,15 +132,15 @@ public class ViewHike extends AppCompatActivity implements NavigationView.OnNavi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_write_review, menu);
+        getMenuInflater().inflate(R.menu.menu_view_reviews, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.review_button:
-                Intent i = new Intent(this, ReviewHike.class);
+            case R.id.view_review_button:
+                Intent i = new Intent(this, ViewReview.class);
                 startActivity(i);
                 return true;
             default:

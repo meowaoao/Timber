@@ -1,6 +1,10 @@
 package ca.bcit.timberproject;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.io.InputStream;
 
 public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.ViewHolder> {
     private Hike[] hikes;
@@ -45,12 +51,23 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.ViewHolder> {
         final CardView cardView = holder.item;
 
         CardView card = cardView.findViewById(R.id.hikeCard);
-        ImageView imgView = cardView.findViewById(R.id.hikeImage);
-        imgView.setImageResource(hikes[position].getImageID());
+//        RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) card.getLayoutParams();
+//        GradientDrawable shape = new GradientDrawable();
+//        shape.setShape(GradientDrawable.RECTANGLE);
+//        shape.setCornerRadius(20);
+//        card.setBackground(shape);
+
+
+        String url = hikes[position].getImageID();
+        new DownloadImageTask((ImageView) cardView.findViewById(R.id.hikeImage)).execute(url);
+
+//        ImageView imgView = cardView.findViewById(R.id.hikeImage);
+//        imgView.setImageResource(hikes[position].getImageID());
+
         TextView nameView = cardView.findViewById(R.id.hikeName);
         nameView.setText(hikes[position].getName());
         TextView locView = cardView.findViewById(R.id.hikeLocation);
-        locView.setText(hikes[position].getLocation());
+        locView.setText(hikes[position].getRegion());
         TextView diffView = cardView.findViewById(R.id.hikeDifficulty);
         diffView.setText(hikes[position].getDifficulty());
         TextView timeView = cardView.findViewById(R.id.hikeTimeLength);
@@ -60,6 +77,7 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(cardView.getContext(), ViewHike.class);
+                intent.putExtra("position", position);
                 cardView.getContext().startActivity(intent);
             }
         });
@@ -68,5 +86,31 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return hikes.length;
+    }
+
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }

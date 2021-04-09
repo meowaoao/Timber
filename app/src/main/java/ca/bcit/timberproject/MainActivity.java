@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FirebaseAuth firebaseAuth;
 
     TextView userName;
+    Hike[] hikeList = new Hike[6];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FirebaseUser user = firebaseAuth.getCurrentUser();
         loadUserData(user);
 
+        System.out.println("<-------------- start Toolbar ---------------->");
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -55,9 +57,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(barToggle);
         barToggle.syncState();
 
+        System.out.println("<-------------- start NavigationView ---------------->");
         NavigationView navigator = findViewById(R.id.navMenu);
         navigator.setNavigationItemSelectedListener(this);
         userName = navigator.getHeaderView(0).findViewById(R.id.nav_userName);
+
+        loadHikeData();
 
         /*
          * Checks for intents on the main activity. On opening the app this will be null however if the menu is used from
@@ -72,17 +77,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Opens the application on the home fragment if the saved state is null, prevents rotation issues.
         else if (savedInstanceState == null) {
             navigator.setCheckedItem(R.id.nav_home);
+            System.out.println("<-------------- start HomeFragment ---------------->");
             getSupportFragmentManager().beginTransaction().replace(R.id.fragHolder, new HomeFragment()).commit();
         }
     }
 
     public void loadUserData(FirebaseUser user) {
+        System.out.println("<-------------- start loadUserData ---------------->");
         String id = user.getUid();
 
         db.collection("users").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 userName.setText(documentSnapshot.get("name").toString());
+                System.out.println("<-------------- finish loadUserData ---------------->");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -90,6 +98,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.w("Main", "Error loading document", e);
             }
         });
+    }
+
+    public void loadHikeData() {
+        db.collection("hikes")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        System.out.println("<-------------- start toObject inner ---------------->");
+                        if (task.isSuccessful()) {
+                            int i = 0;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Hike hike = document.toObject(Hike.class);
+                                hikeList[i] = hike;
+                                i++;
+                                System.out.println("<-------------- to Object ---------------->");
+                                System.out.println(hike);
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+                            }
+                            Hike.hikes = hikeList;
+                            System.out.println(Hike.hikes);
+                            System.out.println("<-------------- finish toObject inner ---------------->");
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 
     /**
