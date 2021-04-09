@@ -12,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
-    private Review[] reviews;
+    private ArrayList<Review> reviews;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private CardView item;
@@ -24,7 +26,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         }
     }
 
-    public ReviewAdapter(Review[] reviews) {
+    public ReviewAdapter(ArrayList<Review> reviews) {
         this.reviews = reviews;
     }
 
@@ -40,13 +42,16 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ReviewAdapter.ViewHolder holder, int position) {
         final CardView cardView = holder.item;
 
+        Review review = reviews.get(position);
+
         CardView card = cardView.findViewById(R.id.reviewerCard);
         TextView name = card.findViewById(R.id.reviewerName);
-        name.setText(reviews[position].getName());
+        name.setText(review.getName());
         TextView desc = card.findViewById(R.id.reviewerReview);
-        desc.setText(reviews[position].getDescription());
+        desc.setText(review.getDescription());
         RatingBar rate = card.findViewById(R.id.reviewerStars);
-        rate.setRating(reviews[position].getStars());
+        System.out.println(review.getStars());
+        rate.setRating(review.getStars());
 
         card.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +63,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return reviews.length;
+        return reviews.size();
     }
 }

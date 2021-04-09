@@ -27,8 +27,7 @@ import java.util.ArrayList;
 public class ViewReview extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     RecyclerView reviewRecycler;
-    Review[] reviewList;
-    ReviewAdapter adapter;
+    ArrayList<Review> reviewList;
 
     DatabaseReference databaseReviews;
 
@@ -52,39 +51,43 @@ public class ViewReview extends AppCompatActivity implements NavigationView.OnNa
         navigator.setNavigationItemSelectedListener(this);
 
         reviewRecycler = findViewById(R.id.reviewRecycler);
-        reviewList = Review.reviews;
-
-        adapter = new ReviewAdapter(reviewList);
-        reviewRecycler.setAdapter(adapter);
-        LinearLayoutManager lm = new LinearLayoutManager(this);
-        reviewRecycler.setLayoutManager(lm);
+//        reviewList = Review.reviews;
+        reviewList = new ArrayList<>();
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        databaseReviews.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                ArrayList<Review> newReviewList = new ArrayList<>();
-//                for (DataSnapshot reviewSnapshot : snapshot.getChildren()) {
-//                    Review review = reviewSnapshot.getValue(Review.class);
-//                    newReviewList.add(review);
-//                }
-//                Review[] newReviews = new Review[newReviewList.size()];
-//                for (int i = 0; i < newReviewList.size(); i++) {
-//                    newReviews[i] = newReviewList.get(i);
-//                }
-//                reviewList = newReviews;
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        databaseReviews.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot reviewSnapshot : snapshot.getChildren()) {
+                    Review review = reviewSnapshot.getValue(Review.class);
+                    Boolean exists = false;
+                    for (Review r : reviewList) {
+                        if ((r.getDescription().equals(review.getDescription()) && (r.getName().equals(r.getName())) && (r.getStars() == review.getStars()))) {
+                            exists = true;
+                        }
+                    }
+
+                    if (!exists) {
+                        reviewList.add(review);
+                    }
+                }
+
+                ReviewAdapter adapter = new ReviewAdapter(reviewList);
+                reviewRecycler.setAdapter(adapter);
+                LinearLayoutManager lm = new LinearLayoutManager(getApplicationContext());
+                reviewRecycler.setLayoutManager(lm);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
     /**
      * If the back button is pressed with the navigation menu open, it will close the menu
