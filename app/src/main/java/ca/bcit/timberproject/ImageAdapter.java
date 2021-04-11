@@ -17,9 +17,9 @@ public class ImageAdapter extends PagerAdapter {
 //    private int[] imgArray = {R.drawable.falls_lake, R.drawable.lightning_loop, R.drawable.pender_hill};
     private String[] imgUrlArray;
 
-    ImageAdapter(Context c, int position) {
+    ImageAdapter(Context c, Hike hike) {
         imageContext = c;
-        String sampleUrl = Hike.hikes[position].getImageID();
+        String sampleUrl = hike.getImageID();
         String subString = sampleUrl.substring(0, sampleUrl.length()-5);
         System.out.println("<-----------" + subString + "----------->");
         imgUrlArray = new String[6];

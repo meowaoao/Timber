@@ -59,6 +59,7 @@ public class RecentFragment extends Fragment {
                     return;
                 }
                 for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                    String docID = doc.getId();
                     String name = doc.getString("name");
                     String region = doc.getString("region");
                     String difficulty = doc.getString("difficulty");
@@ -72,7 +73,7 @@ public class RecentFragment extends Fragment {
                     String camping = doc.getString("camping");
                     String description = doc.getString("description");
                     Hike hike = new Hike(name, region, difficulty, timeLength, imageID, distance,
-                            time, elevation, season, dog, camping, description);
+                            time, elevation, season, dog, camping, description, docID);
                     hikeList.add(hike);
                 }
                 adapter.notifyDataSetChanged();

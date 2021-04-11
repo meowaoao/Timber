@@ -38,7 +38,6 @@ public class ViewReview extends AppCompatActivity implements NavigationView.OnNa
     SharedPreferences preferences;
     RecyclerView reviewRecycler;
     ArrayList<Review> reviewList;
-    int position;
     Hike hike;
 
     FirebaseFirestore db;
@@ -65,8 +64,7 @@ public class ViewReview extends AppCompatActivity implements NavigationView.OnNa
         reviewRecycler = findViewById(R.id.reviewRecycler);
         reviewList = new ArrayList<>();
 
-        position = (int) getIntent().getExtras().get("position");
-        hike = Hike.hikes[position];
+        hike = (Hike) getIntent().getExtras().get("hike");
         loadReviews();
     }
 
@@ -180,7 +178,7 @@ public class ViewReview extends AppCompatActivity implements NavigationView.OnNa
         switch (item.getItemId()) {
             case R.id.review_button:
                 Intent i = new Intent(this, ReviewHike.class);
-                i.putExtra("position", position);
+                i.putExtra("hike", hike);
                 startActivity(i);
                 return true;
             default:

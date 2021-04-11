@@ -35,7 +35,6 @@ public class ReviewHike extends AppCompatActivity {
     RatingBar ratingBar;
     Button cancelButton;
     Button submitButton;
-    int position;
     Hike hike;
 
     @Override
@@ -58,8 +57,7 @@ public class ReviewHike extends AppCompatActivity {
         submitButton = (Button) findViewById(R.id.submit_button);
         submitButton.setOnClickListener(submitListener);
 
-        position = (int) getIntent().getExtras().get("position");
-        hike = Hike.hikes[position];
+        hike = (Hike) getIntent().getExtras().get("hike");
 
         TextView hikeNameTV = findViewById(R.id.hikeNameTV);
         hikeNameTV.setText(hike.getName());

@@ -82,7 +82,7 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(cardView.getContext(), ViewHike.class);
-                intent.putExtra("position", position);
+                intent.putExtra("hike", hikes.get(position));
                 cardView.getContext().startActivity(intent);
             }
         });
