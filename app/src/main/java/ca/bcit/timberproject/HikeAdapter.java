@@ -75,8 +75,8 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.ViewHolder> {
         locView.setText(hikes.get(position).getRegion());
         TextView diffView = cardView.findViewById(R.id.hikeDifficulty);
         diffView.setText(hikes.get(position).getDifficulty());
-        TextView timeView = cardView.findViewById(R.id.hikeTimeLength);
-        timeView.setText(hikes.get(position).getTimeLength());
+        TextView timeLengthView = cardView.findViewById(R.id.hikeTimeLength);
+        timeLengthView.setText(hikes.get(position).getTimeLength());
 
         card.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
                     String name = doc.getString("name");
                     String region = doc.getString("region");
                     String difficulty = doc.getString("difficulty");
-                    String timeLength = doc.get("time").toString();
+                    String timeLength = doc.getString("timeLength");
                     String imageID = doc.getString("imageID");
                     double distance = doc.getDouble("distance");
                     double time = doc.getDouble("time");
