@@ -16,9 +16,11 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.InputStream;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.ViewHolder> {
-    private Hike[] hikes;
+    private ArrayList<Hike> hikes;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private CardView item;
@@ -32,9 +34,9 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.ViewHolder> {
     /**
      * Accepts a list of hikes, this can be the entire list of hikes for the home page or
      * the recent hike list of a user to render the recent hike fragment.
-     * @param hikeList
+     * @param hikeList array list.
      */
-    public HikeAdapter(Hike[] hikeList) {
+    public HikeAdapter(ArrayList<Hike> hikeList) {
         this.hikes = hikeList;
     }
 
@@ -58,20 +60,20 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.ViewHolder> {
 //        card.setBackground(shape);
 
 
-        String url = hikes[position].getImageID();
+        String url = hikes.get(position).getImageID();
         new DownloadImageTask((ImageView) cardView.findViewById(R.id.hikeImage)).execute(url);
 
 //        ImageView imgView = cardView.findViewById(R.id.hikeImage);
 //        imgView.setImageResource(hikes[position].getImageID());
 
         TextView nameView = cardView.findViewById(R.id.hikeName);
-        nameView.setText(hikes[position].getName());
+        nameView.setText(hikes.get(position).getName());
         TextView locView = cardView.findViewById(R.id.hikeLocation);
-        locView.setText(hikes[position].getRegion());
+        locView.setText(hikes.get(position).getRegion());
         TextView diffView = cardView.findViewById(R.id.hikeDifficulty);
-        diffView.setText(hikes[position].getDifficulty());
+        diffView.setText(hikes.get(position).getDifficulty());
         TextView timeView = cardView.findViewById(R.id.hikeTimeLength);
-        timeView.setText(hikes[position].getTimeLength());
+        timeView.setText(hikes.get(position).getTimeLength());
 
         card.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +87,7 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return hikes.length;
+        return hikes.size();
     }
 
 

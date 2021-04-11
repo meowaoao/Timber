@@ -50,9 +50,9 @@ public class Hike{
 
     }
 
-    private Hike(String name, String region, String difficulty, String timeLength, String imageID,
-                 double distance, double time, int elevation, String season, String dog,
-                 String camping, String description) {
+    public Hike(String name, String region, String difficulty, String timeLength, String imageID,
+                double distance, double time, int elevation, String season, String dog,
+                String camping, String description) {
         this.name = name;
         this.region = region;
         this.difficulty = difficulty;
