@@ -16,10 +16,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class ViewHike extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -86,7 +91,27 @@ public class ViewHike extends AppCompatActivity implements NavigationView.OnNavi
                 FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 String user = firebaseAuth.getCurrentUser().getUid();
 
-                db.collection("users").document(user).collection("recent").add(hike);
+                db.collection("users").document(user).collection("recent")
+                        .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        Boolean exists = false;
+                        for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                            if (hike.getName().equals(doc.getString("name"))) {
+                                exists = true;
+                                Toast.makeText(getApplicationContext(), "This hike has already been marked.", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        if (!exists) {
+                            db.collection("users").document(user).collection("recent").add(hike).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Toast.makeText(getApplicationContext(), "Successfully marked as hiked.", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    }
+                });
             }
         });
     }
