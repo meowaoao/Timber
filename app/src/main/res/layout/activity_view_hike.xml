@@ -47,6 +47,7 @@
                         android:textSize="30sp" />
 
                     <GridLayout
+                        android:id="@+id/grid_layout_hike"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/detailsHikeName"
@@ -72,7 +73,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
-                                android:layout_marginEnd="10dp"/>
+                                android:layout_marginEnd="10dp" />
 
                             <TextView
                                 android:id="@+id/detailsHikeDifficulty"
@@ -81,7 +82,7 @@
                                 android:layout_below="@id/detailsHikeLocation"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginEnd="10dp"/>
+                                android:layout_marginEnd="10dp" />
 
                             <TextView
                                 android:id="@+id/detailsHikeLength"
@@ -99,7 +100,7 @@
                                 android:layout_below="@id/detailsHikeLength"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginEnd="10dp"/>
+                                android:layout_marginEnd="10dp" />
 
                             <TextView
                                 android:id="@+id/detailsHikeElevation"
@@ -108,7 +109,7 @@
                                 android:layout_below="@id/detailsHikeTime"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginEnd="10dp"/>
+                                android:layout_marginEnd="10dp" />
 
                             <TextView
                                 android:id="@+id/detailsHikeSeason"
@@ -117,7 +118,7 @@
                                 android:layout_below="@id/detailsHikeElevation"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginEnd="10dp"/>
+                                android:layout_marginEnd="10dp" />
 
                             <TextView
                                 android:id="@+id/detailsHikeDog"
@@ -135,7 +136,7 @@
                                 android:layout_below="@id/detailsHikeDog"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginEnd="10dp"/>
+                                android:layout_marginEnd="10dp" />
 
                             <ImageButton
                                 android:layout_width="80dp"
@@ -153,18 +154,21 @@
 
                     </GridLayout>
 
+                    <Button
+                        android:id="@+id/markHikedBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10sp"
+                        android:layout_marginEnd="10sp"
+                        android:layout_below="@+id/grid_layout_hike"
+                        android:backgroundTint="@color/profile_grey"
+                        android:text="@string/markHiked" />
+
                 </RelativeLayout>
+
 
             </ScrollView>
 
-            <Button
-                android:id="@+id/markHikedBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/markHiked"
-                android:backgroundTint="@color/profile_grey"
-                android:layout_marginStart="10sp"
-                android:layout_marginEnd="10sp" />
 
         </LinearLayout>
 
