@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ViewHike extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     SharedPreferences preferences;
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class ViewHike extends AppCompatActivity implements NavigationView.OnNavi
         ImageAdapter adapter = new ImageAdapter(this);
         pager.setAdapter(adapter);
 
-        int position = (int) getIntent().getExtras().get("position");
+        position = (int) getIntent().getExtras().get("position");
         Hike hike = Hike.hikes[position];
         TextView nameView = findViewById(R.id.detailsHikeName);
         nameView.setText(hike.getName());
@@ -141,6 +142,7 @@ public class ViewHike extends AppCompatActivity implements NavigationView.OnNavi
         switch (item.getItemId()) {
             case R.id.view_review_button:
                 Intent i = new Intent(this, ViewReview.class);
+                i.putExtra("position", position);
                 startActivity(i);
                 return true;
             default:

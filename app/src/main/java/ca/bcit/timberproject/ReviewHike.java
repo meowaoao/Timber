@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -22,7 +23,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReviewHike extends AppCompatActivity {
 
@@ -30,8 +35,8 @@ public class ReviewHike extends AppCompatActivity {
     RatingBar ratingBar;
     Button cancelButton;
     Button submitButton;
-
-    DatabaseReference databaseReviews;
+    int position;
+    Hike hike;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +58,11 @@ public class ReviewHike extends AppCompatActivity {
         submitButton = (Button) findViewById(R.id.submit_button);
         submitButton.setOnClickListener(submitListener);
 
-        databaseReviews = FirebaseDatabase.getInstance().getReference("Reviews");
+        position = (int) getIntent().getExtras().get("position");
+        hike = Hike.hikes[position];
+
+        TextView hikeNameTV = findViewById(R.id.hikeNameTV);
+        hikeNameTV.setText(hike.getName());
     }
 
     private View.OnClickListener submitListener = new View.OnClickListener() {
@@ -76,25 +85,23 @@ public class ReviewHike extends AppCompatActivity {
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     String name = documentSnapshot.get("name").toString();
 
-                    String reviewId = databaseReviews.push().getKey();
                     Review review = new Review(name, review_text, rating);
 
-                    Task setValueTask = databaseReviews.child(reviewId).setValue(review);
-
-                    setValueTask.addOnSuccessListener(new OnSuccessListener() {
-                        @Override
-                        public void onSuccess(Object o) {
-                            Toast.makeText(getApplicationContext(), "Review Submitted.", Toast.LENGTH_LONG).show();
-                            finish();
-                        }
-                    });
-
-                    setValueTask.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(), "Something went wrong, review could not be submitted.", Toast.LENGTH_LONG).show();
-                        }
-                    });
+                    db.collection("hikes").document(hike.getDocID())
+                            .update("reviews", FieldValue.arrayUnion(review))
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(), "Review Submitted.", Toast.LENGTH_LONG).show();
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getApplicationContext(), "Something went wrong, review could not be submitted.", Toast.LENGTH_LONG).show();
+                                }
+                            });
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

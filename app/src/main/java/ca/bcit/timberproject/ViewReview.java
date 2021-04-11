@@ -15,6 +15,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,16 +24,24 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ViewReview extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     SharedPreferences preferences;
     RecyclerView reviewRecycler;
     ArrayList<Review> reviewList;
+    int position;
+    Hike hike;
 
-    DatabaseReference databaseReviews;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +51,7 @@ public class ViewReview extends AppCompatActivity implements NavigationView.OnNa
         Toolbar toolbar = findViewById(R.id.reviewToolbar);
         setSupportActionBar(toolbar);
 
-        databaseReviews = FirebaseDatabase.getInstance().getReference("Reviews");
+        db = FirebaseFirestore.getInstance();
 
         drawer = findViewById(R.id.reviewDrawerLayout);
         ActionBarDrawerToggle barToggle = new ActionBarDrawerToggle(this, drawer,
@@ -53,42 +63,59 @@ public class ViewReview extends AppCompatActivity implements NavigationView.OnNa
         navigator.setNavigationItemSelectedListener(this);
 
         reviewRecycler = findViewById(R.id.reviewRecycler);
-//        reviewList = Review.reviews;
         reviewList = new ArrayList<>();
+
+        position = (int) getIntent().getExtras().get("position");
+        hike = Hike.hikes[position];
+        loadReviews();
+    }
+
+    public void loadReviews() {
+        db.collection("hikes")
+                .document(hike.getDocID()).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                List<Map<String, Object>> reviews = (List<Map<String, Object>>) document.get("reviews");
+                                List<Review> rList = new ArrayList<Review>();
+
+                                for (Map<String, Object> dict: reviews) {
+                                    Object starsObject = dict.get("stars");
+
+                                    if (starsObject instanceof Long) {
+                                        Review review = new Review(dict.get("name").toString(), dict.get("description").toString(), (Long) starsObject);
+                                        if (!reviewList.contains(review)) {
+                                            reviewList.add(review);
+                                        }
+                                    } else {
+                                        Double starsDouble = (Double) starsObject;
+                                        float stars = starsDouble.floatValue();
+                                        Review review = new Review(dict.get("name").toString(), dict.get("description").toString(), stars);
+                                        if (!reviewList.contains(review)) {
+                                            reviewList.add(review);
+                                        }
+                                    }
+
+                                }
+
+                                ReviewAdapter adapter = new ReviewAdapter(reviewList);
+                                reviewRecycler.setAdapter(adapter);
+                                LinearLayoutManager lm = new LinearLayoutManager(getApplicationContext());
+                                reviewRecycler.setLayoutManager(lm);
+                            }
+                        }
+                    }
+                });
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        databaseReviews.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot reviewSnapshot : snapshot.getChildren()) {
-                    Review review = reviewSnapshot.getValue(Review.class);
-                    Boolean exists = false;
-                    for (Review r : reviewList) {
-                        if ((r.getDescription().equals(review.getDescription()) && (r.getName().equals(r.getName())) && (r.getStars() == review.getStars()))) {
-                            exists = true;
-                        }
-                    }
-
-                    if (!exists) {
-                        reviewList.add(review);
-                    }
-                }
-
-                ReviewAdapter adapter = new ReviewAdapter(reviewList);
-                reviewRecycler.setAdapter(adapter);
-                LinearLayoutManager lm = new LinearLayoutManager(getApplicationContext());
-                reviewRecycler.setLayoutManager(lm);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+    protected void onRestart() {
+        super.onRestart();
+        reviewList.clear();
+        loadReviews();
     }
 
     /**
@@ -153,6 +180,7 @@ public class ViewReview extends AppCompatActivity implements NavigationView.OnNa
         switch (item.getItemId()) {
             case R.id.review_button:
                 Intent i = new Intent(this, ReviewHike.class);
+                i.putExtra("position", position);
                 startActivity(i);
                 return true;
             default:

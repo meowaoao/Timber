@@ -13,6 +13,7 @@ public class Hike{
     private String difficulty;
     private String timeLength;
     private String imageID;
+    private String docID;
 
 //    public static Hike[] hikes;
 
@@ -113,4 +114,10 @@ public class Hike{
     public String getImageID() {
         return imageID;
     }
+
+    public void setDocID(String docID) {
+        this.docID = docID;
+    }
+
+    public String getDocID() { return docID; }
 }

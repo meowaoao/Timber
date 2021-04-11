@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             int i = 0;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Hike hike = document.toObject(Hike.class);
+                                hike.setDocID(document.getId());
                                 hikeList[i] = hike;
                                 i++;
                                 System.out.println("<-------------- to Object ---------------->");
