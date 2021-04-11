@@ -14,22 +14,6 @@ public class Review {
                     "Edward and Alphonse Elric, are bestowed with the gift of alchemy - the supernatural ability to " +
                     "transform matter. This becomes a burden after their mother dies from an illness before they figure " +
                     "out how to use their alchemic skills.", 4),
-            new Review("Roy Mustang", "In the fictitious country of Amestris, two young brothers, " +
-                    "Edward and Alphonse Elric, are bestowed with the gift of alchemy - the supernatural ability to " +
-                    "transform matter. This becomes a burden after their mother dies from an illness before they figure " +
-                    "out how to use their alchemic skills.", 5),
-            new Review("Riza Hawkeye", "In the fictitious country of Amestris, two young brothers, " +
-                    "Edward and Alphonse Elric, are bestowed with the gift of alchemy - the supernatural ability to " +
-                    "transform matter. This becomes a burden after their mother dies from an illness before they figure " +
-                    "out how to use their alchemic skills.", 3),
-            new Review("Roy Mustang", "In the fictitious country of Amestris, two young brothers, " +
-                    "Edward and Alphonse Elric, are bestowed with the gift of alchemy - the supernatural ability to " +
-                    "transform matter. This becomes a burden after their mother dies from an illness before they figure " +
-                    "out how to use their alchemic skills.", 2),
-            new Review("Riza Hawkeye", "In the fictitious country of Amestris, two young brothers, " +
-                    "Edward and Alphonse Elric, are bestowed with the gift of alchemy - the supernatural ability to " +
-                    "transform matter. This becomes a burden after their mother dies from an illness before they figure " +
-                    "out how to use their alchemic skills.", 1)
     };
 
     public Review() {}

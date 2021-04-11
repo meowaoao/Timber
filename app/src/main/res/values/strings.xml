@@ -9,11 +9,10 @@
     <string name="nav_close">Close Menu</string>
     <string name="editProfileBtn">Edit Profile</string>
 
-    <string name="userName">Alphonse Elric</string>
+    <string name="userName">Alphonse</string>
     <string name="userEmail">alchemy@gmail.com</string>
     <string name="userLocation">Amestris</string>
-    <string name="userDesc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac semper ipsum. Proin venenatis orci vel augue iaculis placerat. Cras ut enim arcu. Ut lorem felis, accumsan nec luctus ut, dictum in turpis. Suspendisse sit amet diam in urna varius luctus nec ac massa. In sed posuere lectus. Fusce volutpat dignissim diam, eget venenatis odio condimentum quis.
-Maecenas odio augue, faucibus eget risus id, consequat scelerisque augue. Ut dictum fermentum facilisis. Praesent malesuada sodales nunc. Pellentesque nec lorem justo. Suspendisse mollis est sed turpis imperdiet hendrerit. Etiam at mollis arcu. Vivamus sagittis pharetra porttitor. </string>
+    <string name="userDesc"> Hello </string>
     <string name="hikeDesc">Pender Hill is located on the Sunshine Coast in Pender Harbour and is a short, steep hike that provides incredible views of the surrounding area. From various viewpoints near the top, the views include one looking down towards Hotel Lake, across to Mount Daniel, across Pender Harbour, and out towards the Strait of Georgia. </string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">E-mail Address:</string>
@@ -45,4 +44,10 @@ Maecenas odio augue, faucibus eget risus id, consequat scelerisque augue. Ut dic
     <string name="textMsgField">Type a message</string>
     <string name="startChat">Start Chat</string>
     <string name="markHiked">Mark Hiked</string>
+    <string name="intro">Let us know more about you</string>
+    <string name="introHint">Introduce yourself, so other users can know you better!</string>
+    <string name="changePfp">Upload your own avatar</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="choose">Choose</string>
+    <string name="upload">Upload</string>
 </resources>

@@ -39,10 +39,11 @@
                         app:cardCornerRadius="100dp">
 
                         <ImageView
+                            android:id="@+id/user_php"
                             android:layout_width="150dp"
                             android:layout_height="150dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/pfp" />
+                            android:src="@drawable/user_default" />
 
                     </androidx.cardview.widget.CardView>
 
@@ -59,8 +60,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
                             android:layout_marginTop="60dp"
-                            android:layout_marginEnd="20dp"
-                            android:text="@string/userName" />
+                            android:layout_marginEnd="30dp"
+                            android:textSize="25dp"
+                            android:text="" />
 
                         <TextView
                             android:id="@+id/emailText"
@@ -69,16 +71,7 @@
                             android:layout_gravity="right"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="20dp"
-                            android:text="@string/userEmail" />
-
-                        <TextView
-                            android:id="@+id/locationText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="20dp"
-                            android:text="@string/userLocation" />
+                            android:text="" />
 
                     </GridLayout>
 
@@ -88,8 +81,9 @@
                         android:layout_height="wrap_content"
                         android:layout_row="1"
                         android:layout_columnSpan="2"
-                        android:layout_margin="10dp"
-                        android:text="@string/userDesc" />
+                        android:layout_margin="20dp"
+                        android:textSize="20dp"
+                        android:text="" />
 
                     <Button
                         android:id="@+id/editProfile"

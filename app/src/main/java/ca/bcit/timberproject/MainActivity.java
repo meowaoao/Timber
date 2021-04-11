@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FirebaseUser user = firebaseAuth.getCurrentUser();
         loadUserData(user);
 
-        System.out.println("<-------------- start Toolbar ---------------->");
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -56,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(barToggle);
         barToggle.syncState();
 
-        System.out.println("<-------------- start NavigationView ---------------->");
         NavigationView navigator = findViewById(R.id.navMenu);
         navigator.setNavigationItemSelectedListener(this);
         userName = navigator.getHeaderView(0).findViewById(R.id.nav_userName);
@@ -74,20 +72,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Opens the application on the home fragment if the saved state is null, prevents rotation issues.
         else if (savedInstanceState == null) {
             navigator.setCheckedItem(R.id.nav_home);
-            System.out.println("<-------------- start HomeFragment ---------------->");
             getSupportFragmentManager().beginTransaction().replace(R.id.fragHolder, new HomeFragment()).commit();
         }
     }
 
     public void loadUserData(FirebaseUser user) {
-        System.out.println("<-------------- start loadUserData ---------------->");
         String id = user.getUid();
 
         db.collection("users").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 userName.setText(documentSnapshot.get("name").toString());
-                System.out.println("<-------------- finish loadUserData ---------------->");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

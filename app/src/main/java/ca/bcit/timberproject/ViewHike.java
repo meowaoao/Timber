@@ -116,9 +116,9 @@ public class ViewHike extends AppCompatActivity implements NavigationView.OnNavi
         });
     }
 
-    public void tempClick(View view) {
-        Intent intent = new Intent(drawer.getContext(), ViewReview.class);
-        startActivity(intent);
+    public void mapClick(View view) {
+//        Intent intent = new Intent(drawer.getContext(), EditProfile.class);
+//        startActivity(intent);
     }
 
     /**

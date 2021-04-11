@@ -10,11 +10,8 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.InputStream;
-
 public class ImageAdapter extends PagerAdapter {
     private Context imageContext;
-//    private int[] imgArray = {R.drawable.falls_lake, R.drawable.lightning_loop, R.drawable.pender_hill};
     private String[] imgUrlArray;
 
     ImageAdapter(Context c, Hike hike) {
@@ -26,7 +23,6 @@ public class ImageAdapter extends PagerAdapter {
         for (int i = 0; i < 6; i++) {
             String url = subString + (i+1) + ".jpg";
             imgUrlArray[i] = url;
-            System.out.println("<-----------" + url + "----------->");
         }
         //https://www.vancouvertrails.com/images/photos/pender-hill-4.jpg
     }
@@ -47,7 +43,6 @@ public class ImageAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         ImageView imgView = new ImageView(imageContext);
         imgView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//        imgView.setImageResource(imgArray[position]);
         Picasso.get().load(imgUrlArray[position]).into(imgView);
         container.addView(imgView, 0);
         return imgView;

@@ -52,22 +52,13 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull HikeAdapter.ViewHolder holder, int position) {
         final CardView cardView = holder.item;
-
         CardView card = cardView.findViewById(R.id.hikeCard);
-//        RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) card.getLayoutParams();
-//        GradientDrawable shape = new GradientDrawable();
-//        shape.setShape(GradientDrawable.RECTANGLE);
-//        shape.setCornerRadius(20);
-//        card.setBackground(shape);
-
 
         String url = hikes.get(position).getImageID();
-        new DownloadImageTask((ImageView) cardView.findViewById(R.id.hikeImage)).execute(url);
+//        new DownloadImageTask((ImageView) cardView.findViewById(R.id.hikeImage)).execute(url);
 
         ImageView imgView = cardView.findViewById(R.id.hikeImage);
         Picasso.get().load(url).into(imgView);
-
-//        imgView.setImageResource(hikes[position].getImageID());
 
         TextView nameView = cardView.findViewById(R.id.hikeName);
         nameView.setText(hikes.get(position).getName());
