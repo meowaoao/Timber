@@ -10,26 +10,27 @@
         android:id="@+id/messageCard"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_margin="5dp"
+
         app:cardCornerRadius="5dp"
         app:cardBackgroundColor="@color/teal_200">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="5dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/messageBody"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/messageTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/chat_time"/>

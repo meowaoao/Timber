@@ -116,6 +116,8 @@ public class RegisterFragment extends Fragment {
                             Map<String, Object> user = new HashMap<>();
                             user.put("email", email);
                             user.put("name", name);
+                            user.put("desc", "Please update profile with a description about you.");
+                            user.put("pfp", R.drawable.user_default);
                             db.collection("users").document(firebaseAuth.getUid()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {

@@ -13,14 +13,23 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ViewProfile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
-    SharedPreferences preferences;
-    User user;
+    private SharedPreferences preferences;
+    private User user;
+
+    private ImageView profileImg;
+    private TextView userName;
+    private TextView userDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +49,21 @@ public class ViewProfile extends AppCompatActivity implements NavigationView.OnN
 
         NavigationView navigator = findViewById(R.id.profileNavMenu);
         navigator.setNavigationItemSelectedListener(this);
+
+        loadUserProfile();
+    }
+
+    /**
+     * Updates all fields to display user info.
+     */
+    public void loadUserProfile() {
+        profileImg = findViewById(R.id.viewUserImage);
+        userName = findViewById(R.id.viewUserName);
+        userDesc = findViewById(R.id.viewUserDesc);
+
+        profileImg.setImageResource(user.getProfileImage());
+        userName.setText(user.getName());
+        userDesc.setText(user.getProfileDesc());
     }
 
     /**

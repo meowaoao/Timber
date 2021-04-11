@@ -61,9 +61,10 @@ public class ConnectFragment extends Fragment {
                     if (uID.equals(userID)) {
                         continue;
                     }
-                    String name = doc.get("name").toString();
-                    String desc = "";
-                    int imgID = R.drawable.dwarf;
+                    String name = doc.getString("name");
+                    String desc = doc.getString("desc");
+                    int imgID;
+                    imgID = R.drawable.user_default;
                     User user = new User(uID, name, desc, imgID);
                     usersList.add(user);
                 }

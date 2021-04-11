@@ -55,6 +55,7 @@ public class UserChat extends AppCompatActivity implements NavigationView.OnNavi
     private ChatAdapter adapter;
     private ChatSyncService chatSyncService;
     private boolean bound = false;
+    RecyclerView messageRecycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,7 @@ public class UserChat extends AppCompatActivity implements NavigationView.OnNavi
         NavigationView navigator = findViewById(R.id.chatNavMenu);
         navigator.setNavigationItemSelectedListener(this);
 
-        RecyclerView messageRecycler = findViewById(R.id.userChat);
+        messageRecycler = findViewById(R.id.userChat);
 
         messages = new ArrayList<>();
 
@@ -87,7 +88,6 @@ public class UserChat extends AppCompatActivity implements NavigationView.OnNavi
         messageRecycler.setAdapter(adapter);
         LinearLayoutManager lm = new LinearLayoutManager(this);
         messageRecycler.setLayoutManager(lm);
-
         loadMessages();
 
         sendBtn = findViewById(R.id.msgSendBtn);
@@ -174,6 +174,7 @@ public class UserChat extends AppCompatActivity implements NavigationView.OnNavi
                     messages.add(msg);
                 }
                 adapter.notifyDataSetChanged();
+                messageRecycler.scrollToPosition(messages.size() - 1);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -275,24 +276,22 @@ public class UserChat extends AppCompatActivity implements NavigationView.OnNavi
             @Override
             public void run() {
                 if (bound && chatSyncService != null) {
-                    if (chatSyncService != null) {
-                        if (chatSyncService.getUser() == null || chatSyncService.getUser().equals(userID)) {
-                            ArrayList<Message> newMessages = chatSyncService.getMessages();
-                            System.out.println(messages.size());
-                            System.out.println("----");
-                            System.out.println(newMessages.size());
-                            if (newMessages.size() > messages.size()) {
-                                for (int i = messages.size(); i < newMessages.size(); i++) {
-                                    messages.add(newMessages.get(i));
-                                }
-                                adapter.notifyDataSetChanged();
+                    if (chatSyncService.getUser() == null || chatSyncService.getUser().equals(userID)) {
+                        ArrayList<Message> newMessages = chatSyncService.getMessages();
+                        System.out.println(messages.size());
+                        System.out.println("----");
+                        System.out.println(newMessages.size());
+                        if (newMessages.size() > messages.size()) {
+                            for (int i = messages.size(); i < newMessages.size(); i++) {
+                                messages.add(newMessages.get(i));
                             }
+                            adapter.notifyDataSetChanged();
                         }
-                        Intent serviceIntent = new Intent(getApplicationContext(), ChatSyncService.class);
-                        serviceIntent.putExtra("userID", userID);
-                        serviceIntent.putExtra("friendID", friendID);
-                        startService(serviceIntent);
                     }
+                    Intent serviceIntent = new Intent(getApplicationContext(), ChatSyncService.class);
+                    serviceIntent.putExtra("userID", userID);
+                    serviceIntent.putExtra("friendID", friendID);
+                    startService(serviceIntent);
                 }
                 handler.postDelayed(this, 1000 * 2);
             }

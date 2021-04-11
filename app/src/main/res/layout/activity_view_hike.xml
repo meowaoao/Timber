@@ -44,7 +44,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10sp"
                         android:layout_marginTop="10dp"
-                        android:text="Pender Hill"
                         android:textSize="30sp" />
 
                     <GridLayout
@@ -60,8 +59,7 @@
                             android:layout_height="wrap_content"
                             android:layout_column="0"
                             android:layout_columnWeight="1"
-                            android:layout_gravity="fill"
-                            android:text="@string/hikeDesc" />
+                            android:layout_gravity="fill" />
 
                         <RelativeLayout
                             android:layout_width="0dp"
@@ -74,8 +72,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
-                                android:layout_marginEnd="10dp"
-                                android:text="Sunshine Coast" />
+                                android:layout_marginEnd="10dp"/>
 
                             <TextView
                                 android:id="@+id/detailsHikeDifficulty"
@@ -84,8 +81,7 @@
                                 android:layout_below="@id/detailsHikeLocation"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginEnd="10dp"
-                                android:text="Intermediate" />
+                                android:layout_marginEnd="10dp"/>
 
                             <TextView
                                 android:id="@+id/detailsHikeLength"
@@ -94,8 +90,7 @@
                                 android:layout_below="@id/detailsHikeDifficulty"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginEnd="10dp"
-                                android:text="Length: 2km" />
+                                android:layout_marginEnd="10dp" />
 
                             <TextView
                                 android:id="@+id/detailsHikeTime"
@@ -104,8 +99,7 @@
                                 android:layout_below="@id/detailsHikeLength"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginEnd="10dp"
-                                android:text="Time: 1.25 hours" />
+                                android:layout_marginEnd="10dp"/>
 
                             <TextView
                                 android:id="@+id/detailsHikeElevation"
@@ -114,8 +108,7 @@
                                 android:layout_below="@id/detailsHikeTime"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginEnd="10dp"
-                                android:text="Elevation: 1200m" />
+                                android:layout_marginEnd="10dp"/>
 
                             <TextView
                                 android:id="@+id/detailsHikeSeason"
@@ -124,8 +117,7 @@
                                 android:layout_below="@id/detailsHikeElevation"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginEnd="10dp"
-                                android:text="Season: Year Round" />
+                                android:layout_marginEnd="10dp"/>
 
                             <TextView
                                 android:id="@+id/detailsHikeDog"
@@ -134,8 +126,7 @@
                                 android:layout_below="@id/detailsHikeSeason"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginEnd="10dp"
-                                android:text="Dog Friendly: Yes" />
+                                android:layout_marginEnd="10dp" />
 
                             <TextView
                                 android:id="@+id/detailsHikeCamp"
@@ -144,8 +135,7 @@
                                 android:layout_below="@id/detailsHikeDog"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginEnd="10dp"
-                                android:text="Camping: No" />
+                                android:layout_marginEnd="10dp"/>
 
                             <ImageButton
                                 android:layout_width="80dp"

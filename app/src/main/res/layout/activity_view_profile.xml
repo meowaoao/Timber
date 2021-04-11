@@ -41,37 +41,40 @@
                     app:cardCornerRadius="100dp">
 
                     <ImageView
+                        android:id="@+id/viewUserImage"
                         android:layout_width="200dp"
                         android:layout_height="200dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/edward" />
+                        android:src="@drawable/user_default" />
 
                 </androidx.cardview.widget.CardView>
 
                 <TextView
+                    android:id="@+id/viewUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
-                    android:textSize="25sp"
-                    android:text="Edward Elric"/>
+                    android:textSize="25sp" />
 
                 <ScrollView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/viewUserDesc"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_margin="5dp"
-                            android:layout_marginTop="20dp"
-                            android:text="@string/userDesc"/>
+                            android:layout_marginTop="20dp"/>
 
                         <Button
                             android:layout_width="wrap_content"
@@ -79,7 +82,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="10dp"
                             android:onClick="startChat"
-                            android:text="Start Chat"/>
+                            android:text="@string/startChat"/>
 
                     </LinearLayout>
 
