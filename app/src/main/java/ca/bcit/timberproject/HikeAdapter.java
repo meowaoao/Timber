@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.ViewHolder> {
