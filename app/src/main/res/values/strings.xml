@@ -44,4 +44,5 @@ Maecenas odio augue, faucibus eget risus id, consequat scelerisque augue. Ut dic
     <string name="hikeCamp">Camping:</string>
     <string name="textMsgField">Type a message</string>
     <string name="startChat">Start Chat</string>
+    <string name="markHiked">Mark Hiked</string>
 </resources>

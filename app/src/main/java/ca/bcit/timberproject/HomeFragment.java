@@ -23,6 +23,17 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+
 public class HomeFragment extends Fragment {
     FirebaseFirestore db;
     ArrayList<Hike> hikeList;
@@ -35,6 +46,28 @@ public class HomeFragment extends Fragment {
 
         db = FirebaseFirestore.getInstance();
         hikeList = new ArrayList<>();
+
+//        ArrayList<Hike> hikes = new ArrayList<>();
+//
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        db.collection("hikes")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                String hikeName = document.getString("name");
+//                                String location = document.getString("region");
+//                                String difficulty = document.getString("difficulty");
+//                                String timeLength = document.getString("time");
+//                                String imageID = document.getString("imageID");
+//                                String docID = document.getId();
+//                                hikes.add(new Hike(hikeName, location, difficulty, timeLength, imageID, docID));
+//                            }
+//                        }
+//                    }
+//                })
 
         RecyclerView hikeRecycler = view.findViewById(R.id.hikeRecycler);
         loadHikeData();

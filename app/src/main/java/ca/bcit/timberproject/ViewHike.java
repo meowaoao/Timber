@@ -14,15 +14,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ViewHike extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     SharedPreferences preferences;
     Hike hike;
+
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class ViewHike extends AppCompatActivity implements NavigationView.OnNavi
 
         NavigationView navigator = findViewById(R.id.hikeNavMenu);
         navigator.setNavigationItemSelectedListener(this);
+
+        db = FirebaseFirestore.getInstance();
 
         hike = (Hike) getIntent().getExtras().get("hike");
         ViewPager pager = findViewById(R.id.hikeImageSlider);
@@ -72,6 +78,17 @@ public class ViewHike extends AppCompatActivity implements NavigationView.OnNavi
         TextView campView = findViewById(R.id.detailsHikeCamp);
         String camp = getResources().getString(R.string.hikeCamp) + " "  + hike.getCamping();
         campView.setText(camp);
+
+        Button markHikedBtn = findViewById(R.id.markHikedBtn);
+        markHikedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                String user = firebaseAuth.getCurrentUser().getUid();
+
+                db.collection("users").document(user).collection("recent").add(hike);
+            }
+        });
     }
 
     public void tempClick(View view) {
