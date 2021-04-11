@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -63,7 +65,9 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.ViewHolder> {
         String url = hikes.get(position).getImageID();
         new DownloadImageTask((ImageView) cardView.findViewById(R.id.hikeImage)).execute(url);
 
-//        ImageView imgView = cardView.findViewById(R.id.hikeImage);
+        ImageView imgView = cardView.findViewById(R.id.hikeImage);
+        Picasso.get().load(url).into(imgView);
+
 //        imgView.setImageResource(hikes[position].getImageID());
 
         TextView nameView = cardView.findViewById(R.id.hikeName);
@@ -89,7 +93,6 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.ViewHolder> {
     public int getItemCount() {
         return hikes.size();
     }
-
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;

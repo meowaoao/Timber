@@ -41,11 +41,11 @@ public class ViewHike extends AppCompatActivity implements NavigationView.OnNavi
         NavigationView navigator = findViewById(R.id.hikeNavMenu);
         navigator.setNavigationItemSelectedListener(this);
 
+        position = (int) getIntent().getExtras().get("position");
         ViewPager pager = findViewById(R.id.hikeImageSlider);
-        ImageAdapter adapter = new ImageAdapter(this);
+        ImageAdapter adapter = new ImageAdapter(this, position);
         pager.setAdapter(adapter);
 
-        position = (int) getIntent().getExtras().get("position");
         Hike hike = Hike.hikes[position];
         TextView nameView = findViewById(R.id.detailsHikeName);
         nameView.setText(hike.getName());
