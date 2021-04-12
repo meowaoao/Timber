@@ -10,6 +10,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +27,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.io.IOException;
+import java.util.List;
 
 public class ViewHike extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -117,8 +122,22 @@ public class ViewHike extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     public void mapClick(View view) {
-//        Intent intent = new Intent(drawer.getContext(), EditProfile.class);
-//        startActivity(intent);
+        try {
+            Intent intent = new Intent(drawer.getContext(), MapsActivity.class);
+            Geocoder gc = new Geocoder(getApplicationContext());
+            System.out.println(hike.getName());
+            List<Address> addressList = gc.getFromLocationName(hike.getName() + " hike", 1);
+            double latitude = addressList.get(0).getLatitude();
+            double longitude = addressList.get(0).getLongitude();
+            intent.putExtra("latitude", latitude);
+            intent.putExtra("longitude", longitude);
+            intent.putExtra("hike", hike);
+            startActivity(intent);
+        }
+        catch (IOException e) {
+            System.out.println(e.getStackTrace());
+        }
+
     }
 
     /**
