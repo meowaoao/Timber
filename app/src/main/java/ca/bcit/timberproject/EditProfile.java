@@ -63,9 +63,12 @@ public class EditProfile extends AppCompatActivity {
         pfpChooseBtn.setOnClickListener(chooseImgListener);
 
         pfpUploadBtn = (Button) findViewById(R.id.pfp_upload_btn);
-//        pfpUploadBtn.setOnClickListener(uploadListener);
+        pfpUploadBtn.setOnClickListener(uploadListener);
 
         pfpImageView = (ImageView) findViewById(R.id.pfpImgView);
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
     }
 
@@ -95,14 +98,14 @@ public class EditProfile extends AppCompatActivity {
             }
         }
     }
-/*
+
     private View.OnClickListener uploadListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if(filePath != null) {
-//                final ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
-//                progressDialog.setTitle("Uploading...");
-//                progressDialog.show();
+                final ProgressDialog progressDialog = new ProgressDialog(EditProfile.this);
+                progressDialog.setTitle("Uploading...");
+                progressDialog.show();
 // java.lang.NullPointerException: Attempt to invoke virtual method 'com.google.firebase.storage.StorageReference
 // com.google.firebase.storage.StorageReference.child(java.lang.String)' on a null object reference
                 StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
@@ -110,14 +113,15 @@ public class EditProfile extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                                progressDialog.dismiss();
+                                progressDialog.dismiss();
                                 Toast.makeText(getApplicationContext(), "Uploaded", Toast.LENGTH_SHORT).show();
+                                finish();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-//                                progressDialog.dismiss();
+                                progressDialog.dismiss();
                                 Toast.makeText(getApplicationContext(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         })
@@ -126,13 +130,13 @@ public class EditProfile extends AppCompatActivity {
                             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                                 double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
                                         .getTotalByteCount());
-//                                progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                                progressDialog.setMessage("Uploaded "+(int)progress+"%");
                             }
                         });
             }
         }
     };
-*/
+
     private View.OnClickListener submitListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
